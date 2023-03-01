@@ -8,19 +8,8 @@ Bank Account
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
+#include "banco.h"
 
-struct bank_account {
-    int accountNum;
-    double accountBalance;
-    char *accountHolder;
-    char *accountType;
-};
-
-void deposit(struct bank_account *account, double toDeposit);
-
-void withdraw(struct bank_account *account, double toWithdraw);
-
-struct bank_account createAccount(char *accountHolder, char *accountType);
 
 int main()
 {
@@ -28,6 +17,7 @@ int main()
     struct bank_account accounts[10];
     int i = 0;
     int numOfAccounts = 0; //this variable will increase everytime you create a new account
+    int accNum = 0;
     while(true){
         
         int choice = 0;
@@ -36,10 +26,9 @@ int main()
         
         switch(choice){
             case 1:
-            int nameSize, typeSize;
-                char name[100];
+                char *name = (char*)malloc(sizeof(char)*100);
                 int type;
-                char accType[20];
+                char *accType = (char*)malloc(sizeof(char)*20);
                 system("clear");
                 printf("Enter a name: ");
                 scanf("%s", name);
@@ -54,6 +43,7 @@ int main()
                         
                 accounts[i] = createAccount(name, accType);
                 i++;
+                printf("%i", i);
                 numOfAccounts++;
                 system("clear");
                 break;
@@ -65,7 +55,49 @@ int main()
                 }
                 break;
             case 3:
-            
+            int choice1 = 0;
+            int flag = 0;
+            int i = 0;
+            while(flag == 0){
+                system("clear");
+                printf("Enter an account number: \n");
+                scanf("%i",&accNum);
+                
+                
+                for(; i < numOfAccounts; i++){
+                    if(accounts[i].accountNum == accNum){
+                        printf("You are logged-in!\n");
+                        flag = 1;
+                        break;
+                    }
+                }
+                if(flag == 0){
+                    printf("There is no such account number!\n");
+                    system("sleep 2");
+                }
+                printf("Welcome %s to your account\n\nChoose the operation you want to perform:\n1. Deposit\n2. Withdraw\n3. Check Balance\n", accounts[i].accountHolder);
+                scanf("%i", &choice1);
+                
+                switch(choice1){
+                    case 1:
+                    int depositAmount = 0;
+                    printf("How much money do you want to deposit?\n");
+                    scanf("%i", &depositAmount);
+                    deposit(&accounts[i], depositAmount);
+                    break;
+                    
+                    case 2:
+                    int withdrawAmount = 0;
+                    printf("How much money do you want to withdraw?\n");
+                    scanf("%i", &withdrawAmount);
+                    withdraw(&accounts[i], withdrawAmount);
+                    break;
+                    
+                    case 3:
+                    printf("Balance of %s: %.2f \n", accounts[i].accountHolder, accounts[i].accountBalance);
+                    break;
+                }
+            }
                 break;
             case 4:
                 return 0;
@@ -75,31 +107,16 @@ int main()
                 break;
         }
     }
-    
+    for(int j = 0; j < numOfAccounts; j++){
+        free(accounts[j].accountHolder);
+        free(accounts[j].accountType);
+    }
     
     return 0;
 }
 
-void deposit(struct bank_account *account, double toDeposit){
-    account->accountBalance += toDeposit;
-}
 
-void withdraw(struct bank_account *account, double toWithdraw){
-    if(account->accountBalance >= 0)
-        account->accountBalance -= toWithdraw;
-    else
-        printf("Insufficent funds");
-}
 
-struct bank_account createAccount(char *accountHolder, char *accountType){
-        struct bank_account newAccount;
-        newAccount.accountNum = rand()%100+100;
-        newAccount.accountBalance = 0;
-        newAccount.accountHolder = accountHolder;
-        newAccount.accountType = accountType;
-        
-        return newAccount;
-}
 
 
 
