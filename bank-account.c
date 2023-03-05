@@ -106,7 +106,11 @@ int main()
                         break;
                         
                         case 4:
-                            break;
+                        break;
+                            
+                        default:
+                            printf("Please enter a valid number\n");
+                        break;
                     }
                     if(choice1 == 4)
                         break;
@@ -149,5 +153,3 @@ struct bank_account createAccount(char *accountHolder, char *accountType){
         
         return newAccount;
 }
-
-
