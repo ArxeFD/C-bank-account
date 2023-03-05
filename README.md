@@ -1,4 +1,4 @@
-#Bank Account Mini-Project
+<h1>Bank Account Mini-Project</h1>
 This is a simple C program that allows users to create and access their bank accounts, deposit and withdraw funds, and view their account balances. The program can handle up to 10 accounts, and supports two types of accounts: saving and checking.
 
 <h3>Getting Started</h3>
