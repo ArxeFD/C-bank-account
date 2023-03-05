@@ -65,49 +65,52 @@ int main()
                 }
                 break;
             case 3:
-            int choice1 = 0;
-            int flag = 0;
-            int i = 0;
-            while(flag == 0){
                 system("clear");
-                printf("Enter an account number: \n");
-                scanf("%i",&accNum);
+                int accountIndex = -1;
+                printf("Please enter your Account number: \n");
+                scanf("%i", &accNum);
                 
-                
-                for(; i < numOfAccounts; i++){
-                    if(accounts[i].accountNum == accNum){
-                        printf("You are logged-in!\n");
-                        flag = 1;
-                        break;
+                for(int j = 0; j < numOfAccounts; j++){
+                    if(accounts[j].accountNum == accNum){
+                        accountIndex = j;
+                        printf("You are logged-in!\n\n");
                     }
                 }
-                if(flag == 0){
+                if(accountIndex == -1){
                     printf("There is no such account number!\n");
-                    system("sleep 2");
+                    break;
                 }
-                printf("Welcome %s to your account\n\nChoose the operation you want to perform:\n1. Deposit\n2. Withdraw\n3. Check Balance\n", accounts[i].accountHolder);
-                scanf("%i", &choice1);
                 
-                switch(choice1){
-                    case 1:
-                    int depositAmount = 0;
-                    printf("How much money do you want to deposit?\n");
-                    scanf("%i", &depositAmount);
-                    deposit(&accounts[i], depositAmount);
-                    break;
-                    
-                    case 2:
-                    int withdrawAmount = 0;
-                    printf("How much money do you want to withdraw?\n");
-                    scanf("%i", &withdrawAmount);
-                    withdraw(&accounts[i], withdrawAmount);
-                    break;
-                    
-                    case 3:
-                    printf("Balance of %s: %.2f \n", accounts[i].accountHolder, accounts[i].accountBalance);
-                    break;
+                printf("Welcome %s to your account\n", accounts[accountIndex].accountHolder);
+                int choice1 = 0;
+                while(true){
+                    printf("Choose the operation you want to perform:\n1. Deposit\n2. Withdraw\n3. Check Balance\n4. Log-out\n");
+                    scanf("%i", &choice1);
+                    switch(choice1){
+                        case 1:
+                            int depositAmount = 0;
+                            printf("Enter the amount you want to deposit: ");
+                            scanf("%d", &depositAmount);
+                            deposit(&accounts[accountIndex], depositAmount);
+                        break;
+                        
+                        case 2:
+                            int withdrawAmount;
+                            printf("Enter the amount you want to withdraw: ");
+                            scanf("%d", &withdrawAmount);
+                            withdraw(&accounts[accountIndex], withdrawAmount);
+                        break;
+                        
+                        case 3:
+                            printf("Your current balance is: %.2lf \n", accounts[accountIndex].accountBalance);
+                        break;
+                        
+                        case 4:
+                            break;
+                    }
+                    if(choice1 == 4)
+                        break;
                 }
-            }
                 break;
             case 4:
                 return 0;
@@ -125,22 +128,16 @@ int main()
     return 0;
 }
 
-struct bank_account {
-    int accountNum;
-    double accountBalance;
-    char *accountHolder;
-    char *accountType;
-};
-
 void deposit(struct bank_account *account, double toDeposit){
     account->accountBalance += toDeposit;
 }
 
 void withdraw(struct bank_account *account, double toWithdraw){
-    if(account->accountBalance >= 0)
+    if(toWithdraw <= account->accountBalance) {
         account->accountBalance -= toWithdraw;
-    else
-        printf("Insufficent funds");
+    } else {
+        printf("Insufficient funds\n");
+    }
 }
 
 struct bank_account createAccount(char *accountHolder, char *accountType){
@@ -152,16 +149,5 @@ struct bank_account createAccount(char *accountHolder, char *accountType){
         
         return newAccount;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
