@@ -8,7 +8,17 @@ Bank Account
 #include <time.h>
 #include <stdbool.h>
 #include <string.h>
-#include "banco.h"
+
+struct bank_account {
+    int accountNum;
+    double accountBalance;
+    char *accountHolder;
+    char *accountType;
+};
+
+void deposit(struct bank_account *account, double toDeposit);
+void withdraw(struct bank_account *account, double toWithdraw);
+struct bank_account createAccount(char *accountHolder, char *accountType);
 
 
 int main()
@@ -114,6 +124,37 @@ int main()
     
     return 0;
 }
+
+struct bank_account {
+    int accountNum;
+    double accountBalance;
+    char *accountHolder;
+    char *accountType;
+};
+
+void deposit(struct bank_account *account, double toDeposit){
+    account->accountBalance += toDeposit;
+}
+
+void withdraw(struct bank_account *account, double toWithdraw){
+    if(account->accountBalance >= 0)
+        account->accountBalance -= toWithdraw;
+    else
+        printf("Insufficent funds");
+}
+
+struct bank_account createAccount(char *accountHolder, char *accountType){
+        struct bank_account newAccount;
+        newAccount.accountNum = rand()%100+100;
+        newAccount.accountBalance = 0;
+        newAccount.accountHolder = accountHolder;
+        newAccount.accountType = accountType;
+        
+        return newAccount;
+}
+
+
+
 
 
 
