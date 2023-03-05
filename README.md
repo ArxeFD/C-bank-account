@@ -5,17 +5,17 @@ This is a simple C program that allows users to create and access their bank acc
 To use this program, simply compile the source code and run the resulting executable file.
 
 <h3>Usage</h3>
-Upon running the program, you will be presented with a menu of options:
+Upon running the program, you will be presented with a menu of options: <br>
 
-Create an account
-Saved accounts
-Log in
-Exit
-Choose option 1 to create a new account by entering your name and selecting an account type.
+Create an account <br>
+Saved accounts <br>
+Log in <br>
+Exit <br>
+Choose option 1 to create a new account by entering your name and selecting an account type. <br>
 
-Choose option 2 to view a list of all saved accounts.
+Choose option 2 to view a list of all saved accounts. <br>
 
-Choose option 3 to log in to an existing account by entering your account number. Once logged in, you can deposit or withdraw funds, check your account balance, or log out.
+Choose option 3 to log in to an existing account by entering your account number. Once logged in, you can deposit or withdraw funds, check your account balance, or log out. <br>
 
 Choose option 4 to exit the program.
 
