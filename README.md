@@ -18,6 +18,3 @@ Choose option 2 to view a list of all saved accounts. <br>
 Choose option 3 to log in to an existing account by entering your account number. Once logged in, you can deposit or withdraw funds, check your account balance, or log out. <br>
 
 Choose option 4 to exit the program.
-
-<h3>Acknowledgments</h3>
-This program was created as part of a mini-project, and is not intended for actual use in a banking context.
